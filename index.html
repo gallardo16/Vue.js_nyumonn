@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<title>はじめてのVue</title>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+<div id="app">
+  <ul>
+    <li v-for="item in items" v-bind:key="item.name">
+      {{ item.name }}の個数: <input type="number" v-model="item.quantity" min="0">
+    </li>
+  </ul>
+  <hr>
+  <div :style="errorMessageStyle">
+    <ul>
+      <li v-for="item in items" v-bind:keys="item.name">
+      {{ item.name }}: {{ item.price }} × {{ item.quantity }} = {{ item.price * item.quantity | numberWithDelimiter }}円
+      </li>
+    </ul>
+    <p>{{ items[0].name }}: {{ items[0].price }} x {{ items[0].quantity }}</p>
+    <p>小計: {{ totalPrice | numberWithDelimiter }}円</p>
+    <p>合計(税込): {{ totalPriceWithTax | numberWithDelimiter }}円</p>
+    <p v-show="!canBuy">
+      {{ 1000 | numberWithDelimiter }}円以上からご購入いただけます
+    </p>
+    <button :disabled="!canBuy" @:click="doBuy">buy</button>
+  </div>
+</div>
+<script src="app.js"></script>
